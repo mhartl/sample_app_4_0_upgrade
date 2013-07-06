@@ -8,7 +8,7 @@ describe "Authentication" do
     before { visit signin_path }
 
     it { should have_selector('h1',    text: 'Sign in') }
-    it { should have_selector('title', text: 'Sign in') }
+    it { should have_title('Sign in') }
   end
 
   describe "signin" do
@@ -17,7 +17,7 @@ describe "Authentication" do
     describe "with invalid information" do
       before { click_button "Sign in" }
 
-      it { should have_selector('title', text: 'Sign in') }
+      it { should have_title('Sign in') }
       it { should have_selector('div.alert.alert-error', text: 'Invalid') }
 
       describe "after visiting another page" do
@@ -34,7 +34,7 @@ describe "Authentication" do
         click_button "Sign in"
       end
 
-      it { should have_selector('title', text: user.name) }
+      it { should have_title(user.name) }
 
       it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile',  href: user_path(user)) }
@@ -65,7 +65,7 @@ describe "Authentication" do
         describe "after signing in" do
 
           it "should render the desired protected page" do
-            page.should have_selector('title', text: 'Edit user')
+            page.should have_title('Edit user')
           end
 
           describe "when signing in again" do
@@ -78,7 +78,7 @@ describe "Authentication" do
             end
 
             it "should render the default (profile) page" do
-              page.should have_selector('title', text: user.name)
+              page.should have_title(user.name)
             end
           end
         end
@@ -88,7 +88,7 @@ describe "Authentication" do
 
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_title('Sign in') }
         end
 
         describe "submitting to the update action" do
@@ -98,17 +98,17 @@ describe "Authentication" do
 
         describe "visiting user index" do
           before { visit users_path }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_title('Sign in') }
         end
 
         describe "visiting the following page" do
           before { visit following_user_path(user) }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_title('Sign in') }
         end
 
         describe "visiting the followers page" do
           before { visit followers_user_path(user) }
-          it { should have_selector('title', text: 'Sign in') }
+          it { should have_title('Sign in') }
         end
       end
 
@@ -145,7 +145,7 @@ describe "Authentication" do
 
       describe "visiting Users#edit page" do
         before { visit edit_user_path(wrong_user) }
-        it { should have_selector('title', text: full_title('')) }
+        it { should have_title(full_title('')) }
       end
 
       describe "submitting a PUT request to the Users#update action" do
