@@ -92,7 +92,7 @@ describe "Authentication" do
         end
 
         describe "submitting to the update action" do
-          before { put user_path(user) }
+          before { patch user_path(user) }
           specify { response.should redirect_to(signin_url) }
         end
 
